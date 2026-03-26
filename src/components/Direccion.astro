@@ -1,0 +1,189 @@
+---
+// DireccionXV.astro - Sección dirección Mis XV Años
+---
+
+<section
+  class="relative w-full overflow-hidden flex flex-col items-center justify-center bg-transparent py-10 px-4"
+  id="direccion-xv"
+>
+  <!-- ====== DECORATIVOS LATERALES ====== -->
+
+  <!-- Moño - lado izquierdo -->
+  <div
+    class="absolute left-0 top-[58%] z-20 w-[22%] sm:w-[18%] md:w-[14%]"
+    id="deco-mono-dir"
+  >
+    <img
+      src="/imagenes/mono.png"
+      alt="Moño decorativo"
+      class="w-full h-auto object-contain"
+    />
+  </div>
+
+  <!-- Corazón - lado derecho -->
+  <div
+    class="absolute right-0 top-[15%] z-20 w-[22%] sm:w-[18%] md:w-[14%]"
+    id="deco-corazon-dir"
+  >
+    <img
+      src="/imagenes/corazon.png"
+      alt="Corazón decorativo"
+      class="w-full h-auto object-contain"
+    />
+  </div>
+
+  <!-- ====== SPARKLES ====== -->
+  <div class="absolute inset-0 z-10 pointer-events-none" id="sparkles-dir">
+    <svg
+      class="absolute top-[18%] right-[20%] w-3 h-3 text-pink-300 opacity-60"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+      ></path>
+    </svg>
+    <svg
+      class="absolute top-[55%] left-[16%] w-2 h-2 text-pink-200 opacity-50"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+      ></path>
+    </svg>
+    <svg
+      class="absolute bottom-[28%] right-[14%] w-2 h-2 text-pink-300 opacity-40"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+      ></path>
+    </svg>
+    <svg
+      class="absolute bottom-[45%] left-[10%] w-3 h-3 text-pink-200 opacity-35"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- ====== CONTENIDO CENTRAL ====== -->
+  <div
+    class="relative z-30 w-full max-w-[260px] sm:max-w-xs flex flex-col items-center gap-5"
+    id="contenido-dir"
+  >
+    <!-- ICONO DIRECCIÓN -->
+    <div class="flex items-center justify-center" id="icono-dir">
+      <img
+        src="/imagenes/direccion.png"
+        alt="Icono de dirección"
+        class="w-20 h-20 object-contain icono-rosado"
+      />
+    </div>
+
+    <!-- TÍTULO RECEPCIÓN SOCIAL -->
+    <div class="flex flex-col items-center gap-1 text-center" id="titulo-dir">
+      <p class="font-great-vibes text-4xl text-[#eb8fa3]">Recepción Social</p>
+    </div>
+
+    <!-- NOMBRE DEL SALÓN -->
+    <div class="flex flex-col items-center gap-1 text-center" id="info-dir">
+      <p
+        class="font-crimson text-[18px] tracking-[0.1em] font-bold text-[#eb8fa3] uppercase leading-snug"
+      >
+        Salón de Eventos<br /> Doña Flora
+      </p>
+
+      <!-- DIRECCIÓN -->
+      <p class="font-charm text-xl text-[#000000] mt-1">
+        Radial 10, entre 4.º y 5.º anillo - Calle D
+      </p>
+
+      <!-- SEPARADOR DORADO -->
+      <div class="w-16 h-px bg-[#c9a84c] opacity-50 my-2"></div>
+
+      <!-- HORA -->
+      <p class="font-charm text-2xl text-[#000000]">Hora 20:00</p>
+    </div>
+
+    <!-- BOTÓN VER UBICACIÓN -->
+    <div id="boton-dir">
+      <a
+        href="https://maps.app.goo.gl/zeCPsmuSXwnXk5TY8"
+        target="_blank"
+        rel="noopener noreferrer"
+        id="btn-maps"
+        class="inline-flex items-center justify-center gap-2 px-2 py-2.5 rounded-full font-crimson text-[12px] tracking-[0.12em] uppercase font-bold text-white transition hover:brightness-105 active:scale-95 shadow-lg"
+        style="background-color: #eb8fa3; box-shadow: 0 4px 15px rgba(235,143,163,0.35);"
+      >
+        <svg class="w-4 h-4" fill="white" viewBox="0 0 24 24">
+          <path
+            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+          ></path>
+        </svg>
+        Ver Ubicación
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    gsap.set("#deco-mono-dir", { opacity: 0, x: -40 });
+    gsap.set("#deco-corazon-dir", { opacity: 0, x: 40 });
+    gsap.set("#icono-dir", { opacity: 0, scale: 0.8 });
+    gsap.set("#titulo-dir", { opacity: 0, y: 16 });
+    gsap.set("#info-dir", { opacity: 0, y: 16 });
+    gsap.set("#boton-dir", { opacity: 0, y: 16 });
+    gsap.set("#sparkles-dir", { opacity: 0 });
+
+    const DURATION = 1.1;
+    const EASE = "power3.out";
+
+    gsap.to("#deco-mono-dir", {
+      opacity: 1,
+      x: 0,
+      duration: DURATION,
+      ease: "back.out(1.2)",
+    });
+    gsap.to("#deco-corazon-dir", {
+      opacity: 1,
+      x: 0,
+      duration: DURATION,
+      ease: "back.out(1.2)",
+    });
+    gsap.to("#icono-dir", {
+      opacity: 1,
+      scale: 1,
+      duration: DURATION,
+      ease: "back.out(1.4)",
+    });
+    gsap.to("#titulo-dir", {
+      opacity: 1,
+      y: 0,
+      duration: DURATION,
+      ease: EASE,
+    });
+    gsap.to("#info-dir", { opacity: 1, y: 0, duration: DURATION, ease: EASE });
+    gsap.to("#boton-dir", { opacity: 1, y: 0, duration: DURATION, ease: EASE });
+    gsap.to("#sparkles-dir", { opacity: 1, duration: DURATION, ease: EASE });
+  });
+</script>
+
+<style>
+  /* Filtro rosado para #eb8fa3 */
+  .icono-rosado {
+    filter: brightness(0) saturate(100%) invert(73%) sepia(29%) saturate(894%)
+      hue-rotate(300deg) brightness(96%) contrast(92%);
+    transition:
+      filter 0.3s ease,
+      transform 0.3s ease;
+  }
+</style>

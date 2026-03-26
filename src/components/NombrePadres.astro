@@ -1,0 +1,121 @@
+---
+// InvitationDetails.astro - Componente responsivo para los detalles de la invitación
+---
+
+<section
+  class="relative w-full overflow-hidden bg-transparent pt-12 pb-16 md:pt-20 md:pb-24"
+  id="detalles-invitacion"
+>
+  <div
+    class="absolute top-0 left-0 w-full z-0 pointer-events-none"
+    id="cinta-superior"
+  >
+    <img
+      src="/imagenes/cinta.png"
+      alt="Decoración superior"
+      class="w-full h-auto object-contain"
+    />
+  </div>
+
+  <div
+    class="relative z-10 w-full pt-10 max-w-4xl mx-auto px-6 text-center"
+    id="contenedor-textos"
+  >
+    <h3
+      class="font-great-vibes text-4xl sm:text-5xl md:text-6xl text-[#eb8fa3] leading-tight mb-4"
+      id="titulo-quinceanera"
+    >
+      Quinceañera
+    </h3>
+
+    <h1
+      class="font-charm text-2xl sm:text-5xl md:text-6xl text-gray-800 leading-none mb-10"
+      id="nombre-abril"
+    >
+      Abril Luciana
+    </h1>
+
+    <p
+      class="font-great-vibes text-4xl sm:text-5xl md:text-6xl text-[#eb8fa3] leading-tight mb-4"
+      id="subtitulo-padres"
+    >
+      Mis Padres
+    </p>
+
+    <div
+      class="flex flex-col font-charm items-center gap-1.5 font-crimson text-2xl sm:text-2xl md:text-3xl text-gray-700 mb-12"
+      id="bloque-padres"
+    >
+      <span>Celia Rocha Soto</span>
+      <span class="text-[#eb8fa3] text-lg">Y</span>
+      <span>Marco A. Rodriguez Alvarez</span>
+    </div>
+  </div>
+
+  <div
+    class="absolute bottom-0 left-0 w-full z-0 pointer-events-none"
+    id="cinta-inferior"
+  >
+    <img
+      src="/imagenes/cinta.png"
+      alt="Decoración inferior"
+      class="w-full h-auto object-contain scale-y-[-1]"
+    />
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // ESTADO INICIAL (Gsap set)
+    gsap.set("#cinta-superior, #cinta-inferior", { opacity: 0 });
+    gsap.set("#titulo-quinceanera", { opacity: 0, y: -20 });
+    gsap.set("#nombre-abril", { opacity: 0, scale: 0.95, y: 30 });
+    gsap.set("#bloque-padres", { opacity: 0, scale: 0.95 });
+
+    // ✨ ANIMACIÓN DE ENTRADA (Gsap to con ScrollTrigger)
+    ScrollTrigger.create({
+      trigger: "#detalles-invitacion",
+      start: "top 70%", // Comienza cuando la sección está visible al 70%
+      onEnter: () => {
+        const tl = gsap.timeline();
+        tl.to("#cinta-superior, #cinta-inferior", {
+          opacity: 1,
+          duration: 1.5,
+          ease: "sine.out",
+        })
+          .to(
+            "#titulo-quinceanera",
+            { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+            "-=1",
+          )
+          .to(
+            "#nombre-abril",
+            { opacity: 1, scale: 1, y: 0, duration: 1, ease: "back.out(1.5)" },
+            "-=0.7",
+          )
+          .to(
+            "#bloque-padres",
+            { opacity: 1, scale: 1, duration: 1, ease: "back.out(1.5)" },
+            "-=0.7",
+          );
+      },
+    });
+  });
+</script>
+
+<style>
+  /* Asegura que el nombre de Abril sea el foco y use la tipografía correcta */
+  #nombre-abril {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Efecto sutil de brillo limpio en el nombre de Abril al hover */
+  #detalles-invitacion:hover #nombre-abril {
+    color: #eb8fa3;
+    transition: color 0.5s ease;
+  }
+</style>

@@ -1,0 +1,206 @@
+---
+// MusicPlayer.astro - Reproductor minimalista con marco de flores
+---
+
+<div class="w-full max-w-xs mx-auto px-4 py-2 relative" id="player-wrapper">
+  <div class="relative w-full mb-8" id="player-header">
+    <img
+      src="/imagenes/marcoflores.png"
+      alt="Marco decorativo"
+      class="w-full h-auto"
+    />
+    <div class="absolute inset-0 flex items-center justify-center px-10">
+      <h3
+        class="font-great-vibes text-[22px] sm:text-[26px] text-[#eb8fa3] text-center leading-tight"
+      >
+        Dale play a mi canción favorita
+      </h3>
+    </div>
+  </div>
+
+  <div id="player-controls" class="w-full">
+    <div
+      id="controls-container"
+      class="flex items-center justify-center gap-8 mb-6"
+    >
+      <button
+        id="prevBtn"
+        class="text-[#eb8fa3]/60 hover:text-[#eb8fa3] transition-all duration-200 focus:outline-none"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"></path>
+        </svg>
+      </button>
+
+      <button
+        id="playPauseBtn"
+        class="w-14 h-14 rounded-full bg-[#eb8fa3] flex items-center justify-center hover:scale-105 transition-all duration-200 shadow-lg shadow-pink-200/50 focus:outline-none"
+      >
+        <svg
+          id="play-icon"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="white"
+        >
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+        <svg
+          id="pause-icon"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="white"
+          class="hidden"
+        >
+          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"></path>
+        </svg>
+      </button>
+
+      <button
+        id="nextBtn"
+        class="text-[#eb8fa3]/60 hover:text-[#eb8fa3] transition-all duration-200 focus:outline-none"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 18l8.5-6L6 6v12zm10-12h2v12h-2z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="progress-container" class="px-4">
+      <div class="relative w-full h-[3px] bg-[#eb8fa3]/20 rounded-full">
+        <div
+          id="progress-fill"
+          class="h-full bg-[#eb8fa3] rounded-full relative"
+          style="width: 0%"
+        >
+          <div
+            class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#eb8fa3] rounded-full shadow-md shadow-pink-300"
+          >
+          </div>
+        </div>
+        <input
+          type="range"
+          id="progressBar"
+          value="0"
+          max="100"
+          class="absolute inset-0 w-full opacity-0 cursor-pointer h-full"
+        />
+      </div>
+      <div
+        class="flex justify-between text-[10px] text-[#eb8fa3]/70 mt-3 font-medium tracking-widest"
+      >
+        <span id="currentTime">0:00</span>
+        <span id="totalDuration">0:00</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="music-audio" preload="auto">
+  <source src="/audio/retro.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  let isPlaying = false;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Estado inicial para la animación de entrada
+    gsap.set("#player-header", { opacity: 0, y: 20 });
+    gsap.set("#controls-container", { opacity: 0, scale: 0.9 });
+    gsap.set("#progress-container", { opacity: 0 });
+
+    ScrollTrigger.create({
+      trigger: "#player-wrapper",
+      start: "top 90%",
+      onEnter: () => {
+        const tl = gsap.timeline();
+        tl.to("#player-header", {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+        })
+          .to(
+            "#controls-container",
+            { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.7)" },
+            "-=0.5",
+          )
+          .to("#progress-container", { opacity: 1, duration: 0.8 }, "-=0.3");
+      },
+    });
+
+    const audio = document.getElementById("music-audio") as HTMLAudioElement;
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const playIcon = document.getElementById("play-icon");
+    const pauseIcon = document.getElementById("pause-icon");
+    const progressBar = document.getElementById(
+      "progressBar",
+    ) as HTMLInputElement;
+    const progressFill = document.getElementById("progress-fill");
+    const currentTimeEl = document.getElementById("currentTime");
+    const totalDurationEl = document.getElementById("totalDuration");
+
+    // Función Play/Pause
+    function togglePlay() {
+      if (!audio) return;
+      if (audio.paused) {
+        audio.play().catch((e) => console.log("Error al reproducir:", e));
+        playIcon?.classList.add("hidden");
+        pauseIcon?.classList.remove("hidden");
+        isPlaying = true;
+      } else {
+        audio.pause();
+        playIcon?.classList.remove("hidden");
+        pauseIcon?.classList.add("hidden");
+        isPlaying = false;
+      }
+    }
+
+    playPauseBtn?.addEventListener("click", togglePlay);
+
+    // Actualizar progreso
+    audio?.addEventListener("timeupdate", () => {
+      const pct = (audio.currentTime / audio.duration) * 100;
+      if (progressFill) progressFill.style.width = `${pct}%`;
+      if (progressBar) progressBar.value = pct.toString();
+
+      const m = Math.floor(audio.currentTime / 60);
+      const s = Math.floor(audio.currentTime % 60)
+        .toString()
+        .padStart(2, "0");
+      if (currentTimeEl) currentTimeEl.textContent = `${m}:${s}`;
+    });
+
+    // Cargar duración total
+    audio?.addEventListener("loadedmetadata", () => {
+      const m = Math.floor(audio.duration / 60);
+      const s = Math.floor(audio.duration % 60)
+        .toString()
+        .padStart(2, "0");
+      if (totalDurationEl) totalDurationEl.textContent = `${m}:${s}`;
+    });
+
+    // Controlar barra de búsqueda (seek)
+    progressBar?.addEventListener("input", () => {
+      const seekTime = (Number(progressBar.value) / 100) * audio.duration;
+      audio.currentTime = seekTime;
+    });
+  });
+</script>
+
+<style>
+  /* Quitar estilos por defecto del input range para que no se vea */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+</style>

@@ -1,0 +1,154 @@
+---
+// GiftSection.astro - Sección de Lluvia de Sobres y Regalos
+---
+
+<section
+    class="relative w-full overflow-hidden bg-transparent pt-16 pb-20 md:pt-24 md:pb-28 px-6 text-center"
+    id="seccion-regalos"
+>
+    <div class="absolute inset-0 z-0 pointer-events-none" id="sparkles-regalos">
+        <svg
+            class="absolute top-[15%] right-[10%] w-3 h-3 text-pink-300 opacity-60"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            ><path
+                d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+            ></path></svg
+        >
+        <svg
+            class="absolute bottom-[20%] left-[8%] w-3 h-3 text-pink-200 opacity-50"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            ><path
+                d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+            ></path></svg
+        >
+    </div>
+
+    <div
+        class="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-center gap-10"
+        id="contenido-regalos"
+    >
+        <div id="img-regalo" class="w-full flex justify-start pl-4 md:pl-10">
+            <img
+                src="/imagenes/regalo.png"
+                alt="Icono de Regalos"
+                class="w-24 h-auto object-contain drop-shadow-lg icono-rosado"
+            />
+        </div>
+
+        <div class="flex flex-col items-center gap-6" id="texto-regalos">
+            <h3
+                class="font-great-vibes text-5xl md:text-6xl text-[#eb8fa3] leading-tight"
+            >
+                Lluvia de Sobres
+            </h3>
+
+            <div
+                class="font-charm text-xl sm:text-xl md:text-2xl text-gray-700 leading-relaxed max-w-xl flex flex-col gap-5"
+            >
+                <p>Compartir este día contigo es el regalo más especial.</p>
+                <p>
+                    Pero si deseas agregar un detalle a esta celebración, puedes
+                    hacerlo a través de una <strong
+                        class="text-[#eb8fa3] font-bold"
+                        >Lluvia de Sobres y Regalos</strong
+                    >.
+                </p>
+                <p class="font-charm text-3xl md:text-4xl text-[#C9A24D] mt-2">
+                    ¡Gracias!
+                </p>
+            </div>
+        </div>
+
+        <div
+            id="img-qr"
+            class="w-56 h-auto md:w-64 bg-white p-4 rounded-3xl shadow-2xl shadow-pink-100/60 border border-[#eb8fa3]/20"
+        >
+            <img
+                src="/imagenes/qr.png"
+                alt="Código QR de Regalos"
+                class="w-full h-auto object-contain rounded-xl"
+            />
+        </div>
+
+        <div id="texto-esperamos" class="mt-8">
+            <p
+                class="font-great-vibes text-5xl md:text-7xl text-[#eb8fa3] animate-pulse"
+            >
+                ¡Te esperamos!
+            </p>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.set("#img-regalo", { opacity: 0, x: -50 });
+        gsap.set("#texto-regalos h3, #texto-regalos div", {
+            opacity: 0,
+            y: 30,
+        });
+        gsap.set("#img-qr", { opacity: 0, scale: 0.7 });
+        gsap.set("#texto-esperamos", { opacity: 0, scale: 0.5 });
+
+        ScrollTrigger.create({
+            trigger: "#seccion-regalos",
+            start: "top 75%",
+            onEnter: () => {
+                const tl = gsap.timeline();
+                tl.to("#img-regalo", {
+                    opacity: 1,
+                    x: 0,
+                    duration: 1,
+                    ease: "back.out(1.7)",
+                })
+                    .to(
+                        "#texto-regalos h3",
+                        { opacity: 1, y: 0, duration: 0.8 },
+                        "-=0.5",
+                    )
+                    .to(
+                        "#texto-regalos div",
+                        { opacity: 1, y: 0, duration: 0.8 },
+                        "-=0.6",
+                    )
+                    .to(
+                        "#img-qr",
+                        {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 1.2,
+                            ease: "back.out(1.2)",
+                        },
+                        "-=0.5",
+                    )
+                    .to(
+                        "#texto-esperamos",
+                        {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 1,
+                            ease: "elastic.out(1, 0.5)",
+                        },
+                        "-=0.4",
+                    );
+            },
+        });
+    });
+</script>
+
+<style>
+    #texto-regalos div {
+        font-variant-numeric: tabular-nums;
+    }
+
+    .icono-rosado {
+        filter: brightness(0) saturate(100%) invert(73%) sepia(29%)
+            saturate(894%) hue-rotate(300deg) brightness(96%) contrast(92%);
+    }
+</style>
