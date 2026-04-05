@@ -1,0 +1,161 @@
+---
+// ConfirmarAsistencia.astro - Sección confirmar asistencia Mis XV Años
+---
+
+<section
+    class="relative w-full overflow-hidden flex flex-col items-center justify-center bg-transparent py-14 px-2"
+    id="confirmar-xv"
+>
+    <div class="absolute inset-0 z-10 pointer-events-none" id="sparkles-conf">
+        <svg
+            class="absolute top-[20%] right-[12%] w-3 h-3 text-pink-300 opacity-60"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            ><path
+                d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+            ></path></svg
+        >
+        <svg
+            class="absolute top-[30%] right-[6%] w-2 h-2 text-pink-200 opacity-50"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            ><path
+                d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+            ></path></svg
+        >
+        <svg
+            class="absolute bottom-[25%] left-[8%] w-3 h-3 text-pink-300 opacity-45"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            ><path
+                d="M10 0 L11.5 8.5 L20 10 L11.5 11.5 L10 20 L8.5 11.5 L0 10 L8.5 8.5 Z"
+            ></path></svg
+        >
+    </div>
+
+    <div
+        class="relative z-30 w-full max-w-[340px] sm:max-w-[400px] flex flex-col items-center gap-6"
+        id="contenido-conf"
+    >
+        <div id="titulo-conf" class="mb-2">
+            <p
+                class="font-great-vibes text-[38px] md:text-[45px] text-[#D4AF37] text-center"
+            >
+                Confirmar Asistencia
+            </p>
+        </div>
+
+        <div
+            class="relative flex items-center justify-center w-full"
+            id="cuadro-conf"
+        >
+            <img
+                src="/imagenes/cuadro.png"
+                alt="Cuadro decorativo"
+                class="w-full h-auto object-contain block drop-shadow-sm"
+            />
+
+            <div
+                class="absolute inset-0 flex flex-col items-center justify-center text-center px-10 sm:px-14 py-6 gap-2"
+                id="texto-cuadro"
+            >
+                <p
+                    class="font-crimson text-xl pb-2 sm:text-[18px] font-bold text-[#c4607a] leading-tight"
+                >
+                    ¡Me encantará contar<br />con tu presencia!
+                </p>
+
+                <!-- Texto + Botón 1: 1 persona -->
+                <div class="flex flex-col items-center gap-1">
+                    <p class="font-crimson text-lg text-[#c4607a] italic py-6">
+                        Por favor, confirmar asistencia
+                    </p>
+
+                    <a
+                        href=""
+                        id="btn-whatsapp-uno"
+                        class="inline-flex
+                    items-center justify-center gap-1.5 px-2 py-2 rounded-full
+                    font-crimson text-[11px] tracking-[0.06em] uppercase
+                    font-bold text-white transition hover:brightness-105
+                    active:scale-95 shadow-md whitespace-nowrap"
+                        style="background-color: #eb8fa3; box-shadow: 0 4px 15px
+                    rgba(235,143,163,0.35); max-width: 210px; width: 100%;"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <svg
+                            class="w-3 h-3 shrink-0"
+                            viewBox="0 0 24 24"
+                            fill="white"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                            ></path>
+                        </svg>
+                        Confirmar asistencia
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            import { gsap } from "gsap";
+            import { ScrollTrigger } from "gsap/ScrollTrigger";
+            gsap.registerPlugin(ScrollTrigger);
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const PHONE = "59175572556";
+
+                const MSG_UNO = encodeURIComponent(
+                    "¡Hola! 🌸 Me complace confirmar mi asistencia para los 15 años de Abril Luciana. Nos vemos el sábado 11 de agosto, ¡estaré sin falta! 🎀",
+                );
+
+                const btnUno = document.getElementById("btn-whatsapp-uno");
+
+                if (btnUno) {
+                    btnUno.setAttribute(
+                        "href",
+                        `https://wa.me/${PHONE}?text=${MSG_UNO}`,
+                    );
+                }
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#confirmar-xv",
+                        start: "top 80%",
+                    },
+                });
+
+                tl.from("#titulo-conf", {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.8,
+                    ease: "power2.out",
+                })
+                    .from(
+                        "#cuadro-conf",
+                        {
+                            opacity: 0,
+                            scale: 0.85,
+                            duration: 1,
+                            ease: "back.out(1.7)",
+                        },
+                        "-=0.4",
+                    )
+                    .from(
+                        "#sparkles-conf",
+                        { opacity: 0, duration: 1 },
+                        "-=0.5",
+                    );
+            });
+        </script>
+
+        <style>
+            #cuadro-conf img {
+                filter: drop-shadow(0 5px 15px rgba(235, 143, 163, 0.15));
+            }
+        </style>
+    </div>
+</section>
